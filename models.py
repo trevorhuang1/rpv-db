@@ -1,3 +1,6 @@
+# Baseline architecture adapted from the flask_2025 template
+# Source: https://github.com/nighthawkcoders/flask_2025
+
 from sqlalchemy import Column, Float, Integer, String, UniqueConstraint, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 

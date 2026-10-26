@@ -34,3 +34,8 @@ I found an overall pooled SD of 8.2 degrees Celsius, whic hmeans two measurement
 2. Download the dataset and put it in `data/raw` (it is not committed as of now)
 3. Run `python load_db.py` to build `rpv.db`, which contain the 3 tables
 4. Run `python noise.py` to print the noise data table
+
+## Credits
+
+- `models.py` was adapted from NighthawkCodingSociety's flask_2025 and updated in vanilla SQLalchemy (link: https://github.com/nighthawkcoders/flask_2025)
+- Data: see source
