@@ -36,7 +36,7 @@ RENAME = {
 }
 COMPOSITIONS = ["cu_wt_pct", "ni_wt_pct", "mn_wt_pct", "p_wt_pct", "si_wt_pct", "c_wt_pct"]
 
-# Database set up. SQLite ignores foreign keys unless this runs on every connection.
+# Database set up. SQLite ignores foreign keys unless this runs on every connection
 engine = create_engine(DB)
 
 @event.listens_for(engine, "connect")
@@ -50,3 +50,39 @@ Base.metadata.create_all(engine)
 df = pd.read_excel(PATH)
 df.columns = [" ".join(c.split()) for c in df.columns]
 df = df.rename(columns=RENAME) # rename all the columns to fit the tables in models.py
+df[COMPOSITIONS] = df[COMPOSITIONS].round(6) # there were issues with 841 unique compositions unrounded and 840 after rounded
+df["raw_row_number"] = range(1, len(df) + 1)
+
+# building the tables
+with Session(engine) as session, session.begin():
+    sources = {
+        label: Source(datatype=label, description=desc, dataset_doi=DATASET_DOI)
+        for label, desc in SOURCE_INFO.items()
+    }
+    materials = {
+        chem: Material(**dict(zip(COMPOSITIONS, chem)))
+        for chem in df[COMPOSITIONS].drop_duplicates().itertuples(index=False, name=None)
+    }
+    session.add_all(list(sources.values()) + list(materials.values()))
+
+    for row in df.itertuples(index=False):
+        session.add(Result(
+            source=sources[row.datatype],
+            material=materials[tuple(getattr(row, c) for c in COMPOSITIONS)],
+            raw_row_number=row.raw_row_number,
+            irradiation_temp_c=row.irradiation_temp_c,
+            log10_fluence_n_cm2=row.log10_fluence_n_cm2,
+            log10_flux_n_cm2_s=row.log10_flux_n_cm2_s,
+            delta_t41j_c=row.delta_t41j_c,
+        ))
+
+# Test that foreign key constraints are working
+with Session(engine) as session:
+    try:
+        session.add(Result(source_id=1, material_id=999999, raw_row_number=-1,
+                        irradiation_temp_c=290, log10_fluence_n_cm2=19,
+                        log10_flux_n_cm2_s=11, delta_t41j_c=50))
+        session.commit()
+        print("PROBLEM: a result with a fake material_id was accepted")
+    except IntegrityError:
+        print("OK: fake material_id rejected")
