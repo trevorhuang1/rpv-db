@@ -27,7 +27,7 @@ repeats["ss"] = repeats["dof"] * repeats["std"] ** 2
 pooled_sd = (repeats["ss"].sum() / repeats["dof"].sum()) ** 0.5
 print("overall pooled SD (C):", round(pooled_sd, 1))
 
-# 6. The same thing per source
+# the same thing per source
 by_source = repeats.groupby("datatype").agg(
     n_groups=("count", "size"),
     n_rows=("count", "sum"),
