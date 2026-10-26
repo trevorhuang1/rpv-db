@@ -79,9 +79,14 @@ with Session(engine) as session, session.begin():
 # Test that foreign key constraints are working
 with Session(engine) as session:
     try:
-        session.add(Result(source_id=1, material_id=999999, raw_row_number=-1,
-                        irradiation_temp_c=290, log10_fluence_n_cm2=19,
-                        log10_flux_n_cm2_s=11, delta_t41j_c=50))
+        session.add(Result(
+            source_id=1, 
+            material_id=999999, 
+            raw_row_number=-1,
+            irradiation_temp_c=290, 
+            log10_fluence_n_cm2=19,
+            log10_flux_n_cm2_s=11, 
+            delta_t41j_c=50))
         session.commit()
         print("PROBLEM: a result with a fake material_id was accepted")
     except IntegrityError:
