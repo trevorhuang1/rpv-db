@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from models import Base, Material, Result, Source
 
 # Constants
-PATH = 'data/raw/rpv.xlsx'
+PATH = next(Path("data").rglob("*.xlsx"))
 DB = 'sqlite:///data/rpv.db'
 DATASET_DOI = '10.18126/3zkm-yd51'
 
