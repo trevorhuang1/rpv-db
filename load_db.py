@@ -31,7 +31,7 @@ RENAME = {
     "wt_percent_C": "c_wt_pct",
     "log(fluence_n_cm2)": "log10_fluence_n_cm2",
     "log(flux_n_cm2_sec)": "log10_flux_n_cm2_s",
-    "Measured DT41J [C]": "delta_t41j_c",  # the raw header has two spaces; collapsed below
+    "Measured DT41J [C]": "delta_t41j_c",
     "datatype": "datatype",
 }
 COMPOSITIONS = ["cu_wt_pct", "ni_wt_pct", "mn_wt_pct", "p_wt_pct", "si_wt_pct", "c_wt_pct"]

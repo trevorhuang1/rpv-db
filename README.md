@@ -26,7 +26,7 @@ I treated rows with identical composition as the same material, but this may not
 
 `noise.py` groups rows with the same source, composition, temperature, flux, and fluence and compares the shift. 
 
-I found an overall pooled SD of 8.2 degrees Celsius, whic hmeans two measurements under identical conditions typically differ by several degrees Celsius. This would be important to keep in mind if it was used to train a model.
+I found an overall pooled SD of 8.2 degrees Celsius, which means two measurements under identical conditions typically differ by several degrees Celsius. This would be important to keep in mind if it was used to train a model.
 
 ## How to run it
 
