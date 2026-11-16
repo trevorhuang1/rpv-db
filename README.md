@@ -4,7 +4,9 @@ This is a small SQLite database of public reactor pressure vessel (RPV) steel ir
 
 ## Source
 
-Jacobs, Yamamoto, Odette, Morgan, "Dataset RPV TTS 1.0", Materials Data Facility, doi:10.18126/3zkm-yd51 (2023). Paper: Materials & Design 236, 112491. I couldn't find a license on the dataset page, so I didn't publish the raw xlsx to this repo.
+Jacobs, Yamamoto, Odette, Morgan, "Dataset RPV TTS 1.0", Materials Data Facility, doi:10.18126/3zkm-yd51 (2023). Paper: Materials & Design 236, 112491. I couldn't find a license on the dataset page, so I didn't publish the raw xlsx to this repo. 
+
+A link can be found here (https://acdc.alcf.anl.gov/mdf/detail/Dataset_RPV_TTS-1.0/)
 
 ## Notes on the xlsx file
 
@@ -30,7 +32,7 @@ I found an overall pooled SD of 8.2 degrees Celsius, which means two measurement
 
 ## How to run it
 
-1. Create a virtual environment by running `. venv.sh`
+1. Install the dependencies with `pip install -r requirements.txt`. A virtual environment is optional but recommended if you have other python projects, which can be created with `. venv.sh`
 2. Download the dataset and put it in `data/raw` (it is not committed as of now)
 3. Run `python load_db.py` to build `rpv.db`, which contain the 3 tables
 4. Run `python noise.py` to print the noise data table
